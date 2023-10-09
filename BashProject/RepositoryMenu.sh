@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#Menu For The Program
+#Menu For The Program when selected Edit Repository
 PS3='Please enter the number of your choice: '
-options=("1. Create File" "2. Edit File" "3. Delete File" "4. Check Logs" "Exit")
-select opt in "${options[@]}"
+option=("1. Create File" "2. Edit File" "3. Delete File" "Exit")
+select opt in "${option[@]}"
 do
     case $opt in
         "1")
@@ -21,15 +21,14 @@ do
             echo "Delete File"
             ./delete.sh
             ;;
-        "4")
-            #Enters Module for Logs Function
-         echo "Logs"
-          ./logs.sh
-            ;;
+
         "Exit")
+            #Ends Program.
             break
             ;;
+
+        #Input validation for incorrect inputs
         *) 
-        echo "invalid option $REPLY";;
+        echo "invalid option: $REPLY, please enter a Number from the menu for your choice.";;
     esac
 done
