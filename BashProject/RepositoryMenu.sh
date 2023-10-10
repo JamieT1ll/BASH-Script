@@ -2,25 +2,29 @@
 
 #Menu For The Program when selected Edit Repository
 PS3='Please enter the number of your choice: '
-option=("1. Create File" "2. Edit File" "3. Delete File" "Exit")
+option=("1. Create Repository" "2. Edit File" "3. Delete File" "Exit")
 select opt in "${option[@]}"
 do
     case $opt in
         "1")
          #Enters Module For Create File Function
-            echo "Create File"
+            echo "Create Repository"
             ./create.sh
             ;;
         "2")
            #Enters Module For Edit File Function
-            echo "Edit File"
+            echo "Edit Repository"
             ./edit.sh
             ;;
         "3")
             #Enters module for delete File Function
-            echo "Delete File"
+            echo "Delete Repository"
             ./delete.sh
             ;;
+
+        "4")
+           echo "Commit Repository"
+           ;;
 
         "Exit")
             #Ends Program.
