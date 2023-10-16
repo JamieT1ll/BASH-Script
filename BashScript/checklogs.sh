@@ -8,7 +8,7 @@ do
         "1")
             # Displays Logs
             echo "Opening Logs..."
-            ./create.sh
+            
             ;;
 
         "2")
