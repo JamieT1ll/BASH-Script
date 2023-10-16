@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PS3='What would you like to do with the logs?: '
-options=("1. View Logs" "2. Revert Changes" "3. Clear Logs" "e) Exit")
+options=("1. View Logs" "2. Revert Changes" "3. Clear Logs" "4. Clear Backup files" "e) Exit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -12,7 +12,6 @@ do
             ;;
 
         "2")
-            "2")
              # Reverts Changes
              echo "Enter the name of the file you want to revert changes for: "
              read fileName
@@ -31,18 +30,32 @@ do
     ;;
 
 
-         "3")
-          # Clears Logs
-          echo "Are you sure you want to clear all of the logs? Y/N)"
-          read confirmation
-          if [ "$confirmation" = "Y" ]; then
-           echo "Clearing Logs..."
+    "3")
+     # Clears Logs
+     echo "Are you sure you want to clear all of the logs? Y/N)"
+     read confirmation
+     if [ "$confirmation" = "Y" ]; then
+         echo "Clearing Logs..."
            rm -f logs/*  # Remove all files in the 'logs' directory
            echo "Logs cleared."
     else
         echo "Logs were not cleared."
     fi
     ;;
+
+    "4")
+      #Clear Backup Files
+     echo "Are you sure you want to clear all of the backup files? Y/N)"
+     read confirmation
+     if [ "$confirmation" = "Y" ]; then
+         echo "Clearing Backups..."
+           rm -f backup/*  # Remove all files in the 'logs' directory
+           echo "Backups cleared."
+    else
+        echo "Backups were not cleared."
+    fi
+    ;;
+
 
         "e")
             echo "Exiting the menu."

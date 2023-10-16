@@ -1,6 +1,5 @@
 #!/bin/bash
 
-<<<<<<< HEAD
 while true; do
     clear
     echo "current repositories:"
