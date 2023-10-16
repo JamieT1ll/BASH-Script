@@ -7,6 +7,7 @@ while true; do
 
     echo "Enter 1 to create a new repository"
     echo "Enter 2 to add a file to a repository"
+    echo "Enter 3 to delete a file from a repository"
     echo "Enter 3 to edit an existing file"
     echo "Enter 4 to merge a branch in an existing repository"
     echo "Enter 5 to check logs."
@@ -18,26 +19,33 @@ while true; do
     case $(echo "$choice" | tr '[:upper:]' '[:lower:]') in
 
     1)
-        ./createRepository.sh
-        ;;
-
-    2)
-        ./addToRepository.sh
-        ;;
-
-    3)
-        ./editFile.sh
+    ./createRepository.sh
     ;;
 
-
-    4)
-        ./mergeBranch.sh
+2)
+    ./addToRepository.sh
     ;;
 
-    5)
-      ./checklogs.sh
+3)
+    ./deleteFile.sh
     ;;
 
+4)
+    ./editFile.sh
+    ;;
+
+5)
+    ./mergeBranch.sh
+    ;;
+
+6)
+    ./checklogs.sh
+    ;;
+
+e)
+    echo "Exiting the menu."
+    exit
+    ;;
 
 
     e|exit)

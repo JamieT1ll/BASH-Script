@@ -30,30 +30,38 @@ do
     ;;
 
 
-    "3")
-     # Clears Logs
-     echo "Are you sure you want to clear all of the logs? Y/N)"
-     read confirmation
-     if [ "$confirmation" = "Y" ]; then
-         echo "Clearing Logs..."
-           rm -f logs/*  # Remove all files in the 'logs' directory
-           echo "Logs cleared."
+"3")
+    # Clears Logs
+    echo "Are you sure you want to clear all of the logs? Y/N)"
+    read confirmation
+    if [ "$confirmation" = "Y" ]; then
+        echo "Clearing Logs..."
+        if [ -d "$rName/mainBranch/logFile" ]; then
+            rm -rf "$rName/mainBranch/logFile"/*  # Remove all files in the logFile directory
+        else
+            mkdir -p "$rName/mainBranch/logFile"  # Create the logFile directory if it doesn't exist
+        fi
+        echo "Logs cleared, and the logFile directory has been recreated."
     else
         echo "Logs were not cleared."
     fi
     ;;
 
-    "4")
-      #Clear Backup Files
-     echo "Are you sure you want to clear all of the backup files? Y/N)"
-     read confirmation
-     if [ "$confirmation" = "Y" ]; then
-         echo "Clearing Backups..."
-           rm -f backup/*  # Remove all files in the 'logs' directory
-           echo "Backups cleared."
+
+
+   "4")
+    # Clear Backup Files
+    echo "Are you sure you want to clear all of the backup files? Y/N"
+    read confirmation
+    if [ "$confirmation" = "Y" ]; then
+        echo "Clearing Backups..."
+        rm -f backup/*  # Remove all files in the 'backup' directory
+        echo "Backups cleared."
     else
         echo "Backups were not cleared."
     fi
+    ;;
+
     ;;
 
 
