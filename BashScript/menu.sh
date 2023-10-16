@@ -1,5 +1,6 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 while true; do
     clear
     echo "current repositories:"
@@ -9,7 +10,7 @@ while true; do
     echo "Enter 2 to add a file to a repository"
     echo "Enter 3 to edit an existing file"
     echo "Enter 4 to merge a branch in an existing repository"
-    echo "Enter 5 to view logs"
+    echo "Enter 5 to check logs."
     echo "Enter e to exit this menu"
 
     echo -e "\nenter your choice: "
@@ -35,8 +36,11 @@ while true; do
     ;;
 
     5)
-       ./logs.sh
-    
+      ./checklogs.sh
+    ;;
+
+
+
     e|exit)
         echo "Exiting the menu"
         exit
