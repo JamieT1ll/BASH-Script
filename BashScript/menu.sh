@@ -8,9 +8,9 @@ while true; do
     echo "Enter 1 to create a new repository"
     echo "Enter 2 to add a file to a repository"
     echo "Enter 3 to delete a file from a repository"
-    echo "Enter 3 to edit an existing file"
-    echo "Enter 4 to merge a branch in an existing repository"
-    echo "Enter 5 to check logs."
+    echo "Enter 4 to edit an existing file"
+    echo "Enter 5 to merge a branch in an existing repository"
+    echo "Enter 6 to check logs."
     echo "Enter e to exit this menu"
 
     echo -e "\nenter your choice: "
