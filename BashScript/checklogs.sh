@@ -6,10 +6,19 @@ select opt in "${options[@]}"
 do
     case $opt in
         "1")
-            # Displays Logs
-            echo "Opening Logs..."
-            
-            ;;
+        # Displays Logs
+        echo "Opening Logs..."
+        read -p "Enter the name of the log file you want to view: " logFileName
+        logFilePath="mainBranch/logFile/$logFileName.txt"
+
+        if [ -e "$logFilePath" ]; then
+            echo "Contents of $logFileName:"
+            less "$logFilePath"  # Use "less" to view the log file
+        else
+            echo "Log file '$logFileName' not found in the logFile directory."
+        fi
+        ;;
+
 
         "2")
              # Reverts Changes
