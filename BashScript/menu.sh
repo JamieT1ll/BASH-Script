@@ -11,6 +11,7 @@ while true; do
     echo "Enter 4 to edit an existing file"
     echo "Enter 5 to merge a branch in an existing repository"
     echo "Enter 6 to check logs."
+    echo "Enter 7 to check-out files"
     echo "Enter e to exit this menu"
 
     echo -e "\nenter your choice: "
@@ -41,6 +42,10 @@ while true; do
 6)
     ./checklogs.sh
     ;;
+7)
+    ./checkout.sh
+    ;;
+
 
 e)
     echo "Exiting the menu."
