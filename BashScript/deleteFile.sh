@@ -1,7 +1,13 @@
+#!/bin/bash
+
+log() {
+  echo "$(date) - User $(whoami) - $1" >> "./logfile.txt"
+}
+
 echo "Enter the name of the repository you want to remove a file from: "
 read rName
 
-#Check if the main branch exists
+# Check if the main branch exists
 if [ -d "$rName/mainBranch" ]; then
     cd "$rName/mainBranch"
     echo "Files in the repository:"
@@ -16,9 +22,7 @@ if [ -d "$rName/mainBranch" ]; then
         rm "$fName"
         if [ $? -eq 0 ]; then
             echo "'$fName' has been removed from the repository."
-            date | tee -a "logFile/logfile.txt"
-            echo "File removed from the repository" | tee -a "logFile/logfile.txt"
-            
+            log "Removed file '$fName' from the repository"
         else
             echo "Failed to remove '$fName' from the repository."
         fi
@@ -30,4 +34,3 @@ if [ -d "$rName/mainBranch" ]; then
 else
     echo "Invalid repository name. Please check if the repository exists."
 fi
-does this work?

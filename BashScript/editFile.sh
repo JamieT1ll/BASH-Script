@@ -1,4 +1,7 @@
 #!/bin/bash
+log() {
+  echo "$(date) - User $(whoami) - $1" >> "./logfile.txt"
+}
 
 echo "Which of the following repositories contains the file you wish to edit?: "
 ls -I menu
@@ -23,6 +26,7 @@ while true; do
 
                 if [ -e "$fileName" ]; then
                     cp "$fileName" "../backup/$fileName"  # Store a copy in the 'backup' folder
+                    log "Edited file"
                     nano "$fileName"
                     break 2
                 else
@@ -49,6 +53,7 @@ while true; do
 
                             if [ -e "$fileName" ]; then
                                 cp "$fileName" "../backup/$fileName"  # Store a copy in the 'backup' folder
+                                log "Edited file"
                                 nano "$fileName"
                                 break 3  # Exit outer while loop as well
                             else

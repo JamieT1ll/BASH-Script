@@ -1,5 +1,10 @@
 #!/bin/bash
 
+log() {
+  echo "$(date) - User $(whoami) - $1" >> "./logfile.txt"
+}
+
+
 echo "Do you want to create a new file or move an existing file?"
 PS3='Select an action: '
 options=("1. Create a New File" "2. Move an Existing File")
@@ -17,7 +22,7 @@ do
                 touch "$rName/mainBranch/$fName"
                 if [ $? -eq 0 ]; then
                     echo "'$fName' created in '$rName/mainBranch/'"
-                    date | tee -a "$rName/mainBranch/logFile/logfile.txt"
+                    log "Created file '$fName' in '$rName/mainBranch/'"
                     echo "File added to main branch"
                 else
                     echo "Failed to create '$fName' in the folder"
@@ -38,13 +43,13 @@ do
                 mv "$fName" "$rName/mainBranch/"
                 if [ $? -eq 0 ]; then
                     echo "'$fName' moved to '$rName/mainBranch/'"
-                    date | tee -a "$rName/mainBranch/logFile/logfile.txt"
+                    log_action "Moved file '$fName' to '$rName/mainBranch/'"
                     echo "File added to main branch"
                 else
                     echo "Failed to move '$fName' to folder"
                 fi
             else
-                echo "Error, file or repository. not found."
+                echo "Error, file or repository not found."
             fi
             ;;
         *)
