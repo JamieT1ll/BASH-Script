@@ -16,19 +16,23 @@ do
             fi
             ;;
 
-        "2")
-           echo "Files available for check-in:"
-          ls "../checkout"
-           read -p "Enter the filename to check in: " Fcheckin
-  
-          if [ -e "../checkout/$Fcheckin" ]; then
-             mv "../checkout/$Fcheckin" "mainBranch/"
-             echo "Checked out: $Fcheckin"
-          else
+      "2")
+      echo "Files available for check-in:"
+       ls "../checkout"
+       read -p "Enter the filename to check in: " Fcheckin
+      read -p "Enter the repository you would like to check it into: " Rname
 
-        echo "File not found: $Fcheckin"
-          fi
-          ;;
+      if [ -e "../checkout/$Fcheckin" ]; then
+        if [ ! -d "$Rname/mainBranch" ]; then
+            mkdir -p "$Rname/mainBranch"
+        fi
+        mv "../checkout/$Fcheckin" "$Rname/mainBranch/"
+        echo "Checked in: $Fcheckin"
+      else
+         echo "File not found: $Fcheckin"
+       fi
+    ;;
+
 
 
         *)
