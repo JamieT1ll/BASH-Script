@@ -1,4 +1,5 @@
 #!/bin/bash
+
 log() {
   echo "$(date) - User $(whoami) - $1" >> "./logfile.txt"
 }
@@ -9,18 +10,16 @@ select opt in "${options[@]}"
 do
     case $opt in
         "1")
-        # Displays Logs
+         # Displays Logs
         echo "Opening Logs..."
-      
-        Path="mainBranch/logFile/$logFileName.txt"
 
-        if [ -e "$Path" ]; then
-            echo "Contents of $leName:"
-            less "$Path"  # Use "less" to view the log file
-        else
-            echo "Log file '$logFileName' not found in the logFile directory."
-        fi
+         if [ -e "./logfile.txt" ]; then
+        less "./logfile.txt"  # Use "less" to view the log file
+          else
+        echo "Log file './logfile.txt' not found in the current directory."
+         fi
         ;;
+ 
 
 
         "2")
@@ -44,43 +43,42 @@ do
 
 
 
-"3")
-    # Clears Logs
-    echo "Are you sure you want to clear all of the logs? Y/N"
-    read yn
-    if [ "$yn" = "Y" ]; then
-        echo "Clearing Logs..."
-        rm -rf "mainBranch/logFile"/*  # Remove all files in the logFile directory
-        log "Cleared all logs"
-        echo "Logs cleared, and the logFile directory has been recreated."
-    else
-        echo "Logs were not cleared."
-    fi
+        "3")
+        # Clears Logs
+         echo "Are you sure you want to clear the log file? Y/N"
+        read yn
+       if [ "$yn" = "Y" ]; then
+        echo "Clearing Log File..."
+        > ./logfile.txt  # Overwrite the file with an empty file
+        log "Cleared log file"
+        echo "Log file cleared."
+        else
+        echo "Log file was not cleared."
+        fi
     ;;
 
 
 
 
-   "4")
-    # Clear Backup Files
-    echo "Are you sure you want to clear all of the backup files? Y/N"
-    read yn
-    if [ "$yn" = "Y" ]; then
-        echo "Clearing Backups..."
-        rm -f backup/*  # Remove all files in the 'backup' directory
-        log "Cleared all backup files"
-        echo "Backups cleared."
-    else
-        echo "Backups were not cleared."
-    fi
-    ;;
+
+        "4")
+        # Clear Backup Files
+        echo "Are you sure you want to clear all of the backup files? Y/N"
+        read yn
+        if [ "$yn" = "Y" ]; then
+            echo "Clearing Backups..."
+            rm -f backup/*  # Remove all files in the 'backup' directory
+            log "Cleared all backup files"
+            echo "Backups cleared."
+        else
+            echo "Backups were not cleared."
+        fi
+        ;;
 
 
-  
 
-
-    "e")
-      echo "Exiting the menu."
+        "e")
+            echo "Exiting the menu."
             exit
             ;;
 

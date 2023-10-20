@@ -1,47 +1,73 @@
 #!/bin/bash
+
 log() {
   echo "$(date) - User $(whoami) - $1" >> "./logfile.txt"
 }
 
-PS3='What would you like to do with the files?: '
-options=("1. Check-out file" "2. Check-In file" "e) Exit")
+PS3='What would you like to do with the logs?: '
+options=("1. View Logs" "2. Revert Changes" "3. Clear Logs" "4. Clear Backup files" "e) Exit")
 select opt in "${options[@]}"
 do
     case $opt in
         "1")
-            # Check-out file
-            read -p "Enter the filename to check out: " Fcheckout
-            user_checkout_folder="./checkout/$(whoami)"
+            # Displays Logs
+            echo "Opening Logs..."
 
-            if [ -e "mainBranch/$Fcheckout" ]; then
-                if [ ! -d "$user_checkout_folder" ]; then
-                    mkdir "$user_checkout_folder"  # Create user-specific subdirectory if it doesn't exist
-                fi
-                mv "mainBranch/$Fcheckout" "$user_checkout_folder/"
-                log "Checked out file '$Fcheckout'"
-                echo "Checked out: $Fcheckout"
+            logFileName="logFile"  # Specify the log file name
+            Path="branches/$logFileName.txt"
+
+            if [ -e "$Path" ]; then
+                echo "Contents of $logFileName:"
+                less "$Path"  # Use "less" to view the log file
             else
-                echo "File not found: $Fcheckout"
+                echo "Log file '$logFileName' not found in the Repository."
             fi
             ;;
 
         "2")
-            # Check-In file
-            user_checkout_folder="./checkout/$(whoami)"
-            echo "Files available for check-in in your folder:"
-            ls "$user_checkout_folder"
-            read -p "Enter the filename to check in: " Fcheckin
-            read -p "Enter the repository you would like to check it into: " Rname
-
-            if [ -e "$user_checkout_folder/$Fcheckin" ]; then
-                if [ ! -d "$Rname/mainBranch" ]; then
-                    mkdir -p "$Rname/mainBranch"
+            # Reverts Changes
+            echo "Enter the name of the file you want to revert changes for: "
+            read fName
+            if [ -e "backup/$fName" ]; then
+                if [ -e "$fName" ]; then
+                    mv "$fName" "temp_$fName"  # Temporarily rename the current file
+                    cp "backup/$fName" "$fName"  # Copy the backup file as the new current file
+                    mv "temp_$fName" "backup/$fName"  # Move the current file to the backup folder
+                    echo "Changes reverted for $fName."
+                    log "Reverted changes for '$fName'"
+                else
+                    echo "Current file $fName not found. No changes reverted."
                 fi
-                mv "$user_checkout_folder/$Fcheckin" "$Rname/mainBranch/"
-                log "Checked in file '$Fcheckin' into repository '$Rname/mainBranch'"
-                echo "Checked in: $Fcheckin"
             else
-                echo "File not found in your folder: $Fcheckin"
+                echo "Backup file for $fName not found. No changes reverted."
+            fi
+            ;;
+
+        "3")
+            # Clears Logs
+            echo "Are you sure you want to clear the log file? Y/N"
+            read yn
+            if [ "$yn" = "Y" ]; then
+                echo "Clearing Log File..."
+                > ./logfile.txt  # Overwrite the file with an empty file
+                log "Cleared log file"
+                echo "Log file cleared."
+            else
+                echo "Log file was not cleared."
+            fi
+            ;;
+
+        "4")
+            # Clear Backup Files
+            echo "Are you sure you want to clear all of the backup files? Y/N"
+            read yn
+            if [ "$yn" = "Y" ]; then
+                echo "Clearing Backups..."
+                rm -f backup/*  # Remove all files in the 'backup' directory
+                log "Cleared all backup files"
+                echo "Backups cleared."
+            else
+                echo "Backups were not cleared."
             fi
             ;;
 
@@ -50,9 +76,9 @@ do
             exit
             ;;
 
+        # Input validation for incorrect inputs
         *)
             echo "Invalid option: $REPLY, please enter a number from the menu for your choice."
             ;;
     esac
-    break
 done
